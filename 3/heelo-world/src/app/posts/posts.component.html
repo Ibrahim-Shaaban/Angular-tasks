@@ -1,0 +1,6 @@
+<input type="text" name="name" class="form-control" (keyup.enter)="post(user)" #user="ngModel" ngModel >
+<ul class="list-group">
+  <li class="list-group-item" *ngFor="let index of getArray" >
+    {{index.title}} <button class="btn btn-default btn-sm" (click)="delete(index)">delete</button>
+  </li>
+</ul>

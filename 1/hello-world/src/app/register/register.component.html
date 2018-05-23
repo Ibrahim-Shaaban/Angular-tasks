@@ -1,0 +1,273 @@
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+<form [formGroup]="form" >
+      <fieldset>
+          
+          <div class="row">
+            <div class="form-group col-md-6">
+              <label for="courseCode">
+                courseCode
+              </label>
+              <input type="text" formControlName="courseCode"  class="form-control" id="courseCode">
+                
+                
+            </div>
+          
+            <div class="form-group col-md-6">
+              <label for="courseName">
+                courseName
+              </label>
+              <input type="text"  formControlName="courseName" class="form-control" id="courseName"
+              (keyup.enter)="onEnter(courseName)" >
+              <div *ngIf=" courseName.invalid && submit" class="alert alert-danger">
+                <div  *ngIf="courseName.errors.required">name is required</div>
+                <div  *ngIf="courseName.errors.minlength">name should be 5 charc or more</div>
+              </div>
+            </div>
+          </div>
+    
+    <div class="row">
+        <div class="form-group col-md-6">
+            <label for="instructorName">
+                instructorName
+            </label>
+            <input type="text" formControlName="instructorName" class="form-control" id="instructorName"
+            required
+            minlength="6"
+             >
+            <div *ngIf="instructorName.invalid && submit" class="alert alert-danger">
+              <div  *ngIf="instructorName.errors.required">name is required</div>
+              <div  *ngIf="instructorName.errors.minlength">name should be 6 charc or more</div>
+            </div>
+          </div>
+  
+         <div class="form-group col-md-6">
+            
+            
+            <label >
+                Semester
+            
+            </label>
+        
+            <div class="radio radio-primary" style="margin-bottom:10px;">
+              <input type="radio" formControlName="radio1" id="radio1" value="fall">
+              <label for="radio1">
+                  fall
+              </label>
+            </div>
+            <div class="radio radio-primary">
+              <input type="radio" formControlName="radio1" id="radio2" value="spring">
+              <label for="radio2">
+                  spring
+              </label>
+            </div>
+  
+            
+          </div>
+    </div>
+      </fieldset>
+        
+
+        <fieldset>
+            
+            <div class="row">
+                <div class="form-group col-md-6">
+                    <label for="studentName">
+                        studentName
+                    </label>
+                    <input type="text" formControlName="studentName" class="form-control" id="studentName"
+                    required
+                    minlength="5">
+                    <div *ngIf=" studentName.invalid && submit" class="alert alert-danger">
+                        <div  *ngIf="studentName.errors.required">studentName is required</div>
+                        <div  *ngIf="studentName.errors.minlength">studentName should be 5 charc or more</div>
+                      </div>
+                      
+                      
+                  </div>
+                
+                  <div class="form-group col-md-6">
+                    <label for="birthDate">
+                        birthDate
+                    </label>
+                    <input type="date" formControlName="birthDate" class="form-control" id="birthDate"
+                    required
+                   >
+                    <div *ngIf=" birthDate.invalid && submit" class="alert alert-danger">
+                      <div *ngIf="birthDate.errors.required">birthDate is required</div>
+                      
+                    </div>
+                  </div>
+    
+            </div>
+            <div class="row">
+                <div class="form-group col-md-6">
+                    <label for="gpa">
+                        gpa
+                    </label>
+                    <input type="number"  formControlName="gpa" class="form-control" id="gpa"
+                    required
+                    minlength="3">
+                    <div *ngIf=" gpa.invalid && submit" class="alert alert-danger">
+                        <div  *ngIf="gpa.errors.required">gpa is required</div>
+                        <div  *ngIf="gpa.errors.pattern">gpa should be positive number</div>
+                      </div>
+                      
+                      
+                  </div>
+                  <div class="forform-group col-md-6">
+                    <div class="checkbox checkbox-primary" style="margin-top:25px;">
+                      <input id="checkbox2" type="checkbox" formControlName="check" >
+                      <label for="checkbox2">
+                          check this
+                      </label>
+                    </div>
+    
+                    
+                  </div>
+              
+            </div>
+            <button class="btn btn-success" style="padding:10px ;margin:5px;">Add</button>
+        </fieldset>
+        <input type="submit" class="btn btn-primary" (click)="login()" value="Submit">
+        
+        
+
+
+</form>
+<div class="flex">
+    <button class="btn btn-danger" style="padding:10px ;margin:5px; width:20%"(click)="courseTable()">CoursesTable</button>
+    <button class="btn btn-danger" style="padding:10px ;margin:5px; width:20%" (click)="studentTable()">StudentsTable</button>
+</div>
+
+
+
+<!--Table-->
+<table class="table" *ngIf="submit && !error && left ">
+    
+        <!--Table head-->
+        <thead class="blue-grey lighten-4">
+            <tr>
+                <th>courseCode</th>
+                <th>courseName</th>
+                <th>instructorName</th>
+                <th>semester</th>
+                
+                
+            </tr>
+        </thead>
+        <!--Table head-->
+    
+        <!--Table body-->
+        <tbody *ngIf="!isLarge" >
+            <tr *ngFor="let m of smallCourses" >
+                
+                        <td >
+                                {{m.courseCode}}
+                            </td>
+                            <td>{{m.courseName}}</td>
+                            <td>{{m.instructorName}}</td>
+                            <td>{{m.semester}}</td>
+
+                
+                
+            </tr>
+            
+        </tbody>
+        <tbody *ngIf="isLarge && !show" >
+                <tr *ngFor="let m of smallCourses" >
+                    
+                            <td >
+                                    {{m.courseCode}}
+                                </td>
+                                <td>{{m.courseName}}</td>
+                                <td>{{m.instructorName}}</td>
+                                <td>{{m.semester}}</td>
+    
+                    
+                    
+                </tr>
+                
+            </tbody>
+            <tbody *ngIf="isLarge && show" >
+                    <tr *ngFor="let m of largeCourses" >
+                        
+                                <td >
+                                        {{m.courseCode}}
+                                    </td>
+                                    <td>{{m.courseName}}</td>
+                                    <td>{{m.instructorName}}</td>
+                                    <td>{{m.semester}}</td>
+        
+                        
+                        
+                    </tr>
+                    
+                </tbody>
+                <div class="flex">
+                    <button class="btn btn-default" *ngIf="isLarge && !hide" (click)="showMore()" style="padding:10px;width:400px;">Show more</button>
+                </div>
+        <!--Table body-->
+    </table>
+
+    <table class="table" *ngIf="submit && !error && !left">
+        
+            <!--Table head-->
+            <thead class="blue-grey lighten-4">
+                <tr>
+                    <th>studentName</th>
+                    <th>birthDate</th>
+                    <th>gpa</th>
+                    <th>international</th>
+                    
+                    
+                </tr>
+            </thead>
+            <!--Table head-->
+        
+            <!--Table body-->
+            <tbody *ngIf="!isLarge">
+                <tr *ngFor="let m of smallStudents">
+                    <td >
+                        {{m.studentName}}
+                    </td>
+                    <td>{{m.birthDate}}</td>
+                    <td>{{m.gpa}}</td>
+                    <td>{{m.international}}</td>
+                </tr>
+                
+            </tbody>
+
+            <tbody *ngIf="isLarge && !show">
+                    <tr *ngFor="let m of smallStudents">
+                        <td >
+                            {{m.studentName}}
+                        </td>
+                        <td>{{m.birthDate}}</td>
+                        <td>{{m.gpa}}</td>
+                        <td>{{m.international}}</td>
+                    </tr>
+                    
+                </tbody>
+
+                <tbody *ngIf="isLarge && show">
+                        <tr *ngFor="let m of largeStudents">
+                            <td >
+                                {{m.studentName}}
+                            </td>
+                            <td>{{m.birthDate}}</td>
+                            <td>{{m.gpa}}</td>
+                            <td>{{m.international}}</td>
+                        </tr>
+                        
+                    </tbody>
+                    <div class="flex">
+                        <button class="btn btn-default" *ngIf="isLarge && !hide" (click)="showMore()" style="padding:10px;widdth:50%">Show more</button>
+                    </div>
+                    
+            <!--Table body-->
+        </table>
+    <!--Table-->
+    
+    <!--Table-->
+    
+                                        
